@@ -327,9 +327,12 @@ public class IntLinkedList implements IntList, IntQueue, IntStack {
 
         @Override
         public void clear() {
-            for (int i = 0; i < size; i++) {
-                intLinkedList.remove(offset);
-            }
+            Entry clearFirst = intLinkedList.getEntry(offset - 1);
+            Entry clearLast = intLinkedList.getEntry(offset + size);
+            clearFirst.next = clearLast;
+            clearLast.previous = clearFirst;
+            intLinkedList.size = intLinkedList.size - this.size;
+            this.size = 0;
         }
 
         @Override
